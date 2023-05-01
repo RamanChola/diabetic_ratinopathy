@@ -1,6 +1,5 @@
 from website import create_app
 from flask import Flask,render_template,request
-import pickle
 from keras.models import load_model
 import os.path
 import h5py
@@ -8,7 +7,8 @@ import os
 import numpy as np
 from PIL import Image
 import cv2 as cv
-from keras.preprocessing.image import img_to_array, load_img
+from tensorflow.keras.utils import img_to_array, load_img
+# from keras.preprocessing import image as imageLoader
 
 app=create_app()
 
@@ -24,7 +24,7 @@ model=load_model("Diabeitc_model_new.h5")
 def predict():
     img1=request.files['img1']
     print(img1)
-    image_path="C:/Users/Bobby/Desktop/Diabetic Ratinopathy Website - Version2/website/testimage/"+img1.filename
+    image_path="D:/MernPractise/minor-proj/diabetic_ratinopathy/website/testimage/"+img1.filename
     img1.save(image_path)
     print(type(img1))
     image=load_img(image_path,target_size=(266,400))
@@ -49,7 +49,7 @@ def predict():
 
     img2=request.files['img2']
     print(img2)
-    image_path2="C:/Users/Bobby/Desktop/Diabetic Ratinopathy Website - Version2/website/testimage/"+img2.filename
+    image_path2="D:/MernPractise/minor-proj/diabetic_ratinopathy/website/testimage/"+img2.filename
     img2.save(image_path2)
     print(type(img2))
     image2=load_img(image_path2,target_size=(266,400))
