@@ -30,165 +30,36 @@
   <link href="../static/assets/css/style.css" rel="stylesheet">
   <link href="../static/assets/css/predict.css" rel="stylesheet">
 
-
+  <style>
+    .center-button {
+      display: flex;
+      justify-content: center;
+    }
+    
+    .center-button button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      background-color: #2c4964;
+      color:white;
+      padding: 10px 50px;
+      border-radius: 5%;
+      outline: none;
+      cursor: pointer;
+      margin-bottom: 30px;
+    }
+    
+    .center-button button:focus {
+      outline: none;
+    }
+    
+    .center-button button a {
+      color: inherit;
+      text-decoration: none;
+    }
+  </style>
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-  <script type="text/javascript">
-    var x=[]
-     x[0]=parseInt("{{pred1}}")
-     x[1]=parseInt ("{{pred2}}")
-     x[2]= parseInt ("{{pred3}}")
-     x[3]= parseInt ("{{pred4}}")
-     x[4]= parseInt ("{{pred5}}")
-     x[5]= parseInt ("{{pred6}}")
-     x[6]= parseInt ("{{pred7}}")
-     x[7]= parseInt ("{{pred8}}")
-     x[8]= parseInt ("{{pred9}}")
-     x[9]= parseInt ("{{pred10}})")
-     console.log(x)
-    google.charts.load("current", {packages:["corechart"]});
-    google.charts.setOnLoadCallback(drawChart1);
-    google.charts.setOnLoadCallback(drawChart2);
-    google.charts.setOnLoadCallback(barchart1);
-    google.charts.setOnLoadCallback(barchart2);
-    google.charts.setOnLoadCallback(areachart1);
-    google.charts.setOnLoadCallback(areachart2);
-
-
-
-    function drawChart1() {
-      var data = google.visualization.arrayToDataTable([
-      ['Stage', 'Chance'],
-      ['NO_Dr',     x[0]],
-      ['Mild',      x[1]],
-      ['Moderate',  x[2]],
-      ['Severe', x[3]],
-      ['Proliferate_Dr',  x[4]]
-      ]);
-
-      var options = {
-        title: '5 DR Stages ',
-        is3D: true,
-      };
-
-      var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
-      chart.draw(data, options);
-    }
-
-    function drawChart2() {
-      var data = google.visualization.arrayToDataTable([
-        ['Stage', 'Chance'],
-        ['NO_Dr',     x[5]],
-        ['Mild',      x[6]],
-        ['Moderate',  x[7]],
-        ['Severe', x[8]],
-        ['Proliferate_Dr',  x[9]]
-      ]);
-
-      var options = {
-        title: '5 DR Stages ',
-        is3D: true,
-      };
-
-      var chart = new google.visualization.PieChart(document.getElementById('piechart_3d2'));
-      chart.draw(data, options);
-    }
-
-    // For the Barchart Function 
-    function barchart2() {
-      var data = google.visualization.arrayToDataTable([
-        ["Element", "Density", { role: "style" } ],
-        ["NO_DR", x[5], "#b87333"],
-        ["Mild", x[6], "silver"],
-        ["Moderate", x[7], "gold"],
-        ["Severe", x[8], "color: #e5e4e2"],
-        ["Proliferate_Dr", x[9], "color: #e5e4e2"]
-      ]);
-
-      var view = new google.visualization.DataView(data);
-      view.setColumns([0, 1,
-                       { calc: "stringify",
-                         sourceColumn: 1,
-                         type: "string",
-                         role: "annotation" },
-                       2]);
-
-      var options = {
-        title: "Image 2 DR Stages",
-        bar: {groupWidth: "95%"},
-        legend: { position: "none" },
-      };
-      var chart = new google.visualization.BarChart(document.getElementById("barchart_values2"));
-      chart.draw(view, options);
-  }
-
-   // For the Barchart Function 
-   function barchart1() {
-    var data = google.visualization.arrayToDataTable([
-      ["Element", "Density", { role: "style" } ],
-      ["NO_DR", x[0], "#b87333"],
-      ["Mild", x[1], "silver"],
-      ["Moderate", x[2], "gold"],
-      ["Severe", x[3], "color: #e5e4e2"],
-      ["Proliferate_Dr", x[4], "color: #e5e4e2"]
-    ]);
-
-    var view = new google.visualization.DataView(data);
-    view.setColumns([0, 1,
-                     { calc: "stringify",
-                       sourceColumn: 1,
-                       type: "string",
-                       role: "annotation" },
-                     2]);
-
-    var options = {
-      title: "Image 1 DR Stages",
-      bar: {groupWidth: "95%"},
-      legend: { position: "none" },
-    };
-    var chart = new google.visualization.BarChart(document.getElementById("barchart_values1"));
-    chart.draw(view, options);
-}
-
-function areachart1() {
-  var data = google.visualization.arrayToDataTable([
-    ['Stage', 'Chances' ],
-    ['No_Dr',  x[0]  ],
-    ['Mild',  x[1]],
-    ['Moderate',  x[2] ],
-    ['Severe',  x[3]],
-    ['Severe',  x[4]],
-  ]);
-
-  var options = {
-    title: 'Stages Distrubution',
-    hAxis: {title: 'Year',  titleTextStyle: {color: '#333'}},
-    vAxis: {minValue: 0}
-  };
-
-  var chart = new google.visualization.AreaChart(document.getElementById('area_chart1'));
-  chart.draw(data, options);
-}
-
-function areachart2() {
-  var data = google.visualization.arrayToDataTable([
-    ['Stage', 'Chances' ],
-    ['No_Dr',  x[5]  ],
-    ['Mild',  x[6]],
-    ['Moderate',  x[7] ],
-    ['Severe',  x[8]],
-    ['Severe',  x[9]],
-  ]);
-
-  var options = {
-    title: 'Stages Distrubution',
-    hAxis: {title: 'Year',  titleTextStyle: {color: '#333'}},
-    vAxis: {minValue: 0}
-  };
-
-  var chart = new google.visualization.AreaChart(document.getElementById('area_chart2'));
-  chart.draw(data, options);
-}
-  </script>
 
 </head>
 <body>
@@ -249,7 +120,7 @@ function areachart2() {
           <input  class="form-control form_input"   type="file" name="img2" id="image2" placeholder="Choose Right Eye Image ">
     
         </label>
-        <input  class="form-control predict_btn" type="submit" value="Predict">
+        <input  type="submit" value="Predict" id="predictButton" class="form-control predict_btn" type="submit" value="Predict">
       </form>
     </div>
 </div>
@@ -369,6 +240,13 @@ function areachart2() {
   <div id="area_chart2" class="visual-item1"></div>
 </div>
 
+<div class="center-button">
+  <button  type="submit" value="Save" id="saveButton" style="display: none;">
+    <a href="http://localhost:3000/folio/profile">
+      Save
+    </a>
+  </button>
+</div>
 <!-- ======= Footer ======= -->
 
 <footer class="footer_css">
@@ -391,7 +269,167 @@ function areachart2() {
   </div>
 </footer><!-- End Footer -->
 
+<script type="text/javascript">
+  var x=[]
+   x[0]=parseInt("{{pred1}}")
+   x[1]=parseInt ("{{pred2}}")
+   x[2]= parseInt ("{{pred3}}")
+   x[3]= parseInt ("{{pred4}}")
+   x[4]= parseInt ("{{pred5}}")
+   x[5]= parseInt ("{{pred6}}")
+   x[6]= parseInt ("{{pred7}}")
+   x[7]= parseInt ("{{pred8}}")
+   x[8]= parseInt ("{{pred9}}")
+   x[9]= parseInt ("{{pred10}})")
+  google.charts.load("current", {packages:["corechart"]});
+  google.charts.setOnLoadCallback(drawChart1);
+  google.charts.setOnLoadCallback(drawChart2);
+  google.charts.setOnLoadCallback(barchart1);
+  google.charts.setOnLoadCallback(barchart2);
+  google.charts.setOnLoadCallback(areachart1);
+  google.charts.setOnLoadCallback(areachart2);
 
+  const saveButton = document.getElementById('saveButton');
+  if (x.length > 0 && !x.some(isNaN)) {
+    saveButton.style.display = 'block';
+  } else {
+    saveButton.style.display = 'none';
+  }
+
+  function drawChart1() {
+    var data = google.visualization.arrayToDataTable([
+    ['Stage', 'Chance'],
+    ['NO_Dr',     x[0]],
+    ['Mild',      x[1]],
+    ['Moderate',  x[2]],
+    ['Severe', x[3]],
+    ['Proliferate_Dr',  x[4]]
+    ]);
+
+    var options = {
+      title: '5 DR Stages ',
+      is3D: true,
+    };
+
+    var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+    chart.draw(data, options);
+  }
+
+  function drawChart2() {
+    var data = google.visualization.arrayToDataTable([
+      ['Stage', 'Chance'],
+      ['NO_Dr',     x[5]],
+      ['Mild',      x[6]],
+      ['Moderate',  x[7]],
+      ['Severe', x[8]],
+      ['Proliferate_Dr',  x[9]]
+    ]);
+
+    var options = {
+      title: '5 DR Stages ',
+      is3D: true,
+    };
+
+    var chart = new google.visualization.PieChart(document.getElementById('piechart_3d2'));
+    chart.draw(data, options);
+  }
+
+  // For the Barchart Function 
+  function barchart2() {
+    var data = google.visualization.arrayToDataTable([
+      ["Element", "Density", { role: "style" } ],
+      ["NO_DR", x[5], "#b87333"],
+      ["Mild", x[6], "silver"],
+      ["Moderate", x[7], "gold"],
+      ["Severe", x[8], "color: #e5e4e2"],
+      ["Proliferate_Dr", x[9], "color: #e5e4e2"]
+    ]);
+
+    var view = new google.visualization.DataView(data);
+    view.setColumns([0, 1,
+                     { calc: "stringify",
+                       sourceColumn: 1,
+                       type: "string",
+                       role: "annotation" },
+                     2]);
+
+    var options = {
+      title: "Image 2 DR Stages",
+      bar: {groupWidth: "95%"},
+      legend: { position: "none" },
+    };
+    var chart = new google.visualization.BarChart(document.getElementById("barchart_values2"));
+    chart.draw(view, options);
+}
+
+ // For the Barchart Function 
+ function barchart1() {
+  var data = google.visualization.arrayToDataTable([
+    ["Element", "Density", { role: "style" } ],
+    ["NO_DR", x[0], "#b87333"],
+    ["Mild", x[1], "silver"],
+    ["Moderate", x[2], "gold"],
+    ["Severe", x[3], "color: #e5e4e2"],
+    ["Proliferate_Dr", x[4], "color: #e5e4e2"]
+  ]);
+
+  var view = new google.visualization.DataView(data);
+  view.setColumns([0, 1,
+                   { calc: "stringify",
+                     sourceColumn: 1,
+                     type: "string",
+                     role: "annotation" },
+                   2]);
+
+  var options = {
+    title: "Image 1 DR Stages",
+    bar: {groupWidth: "95%"},
+    legend: { position: "none" },
+  };
+  var chart = new google.visualization.BarChart(document.getElementById("barchart_values1"));
+  chart.draw(view, options);
+}
+
+function areachart1() {
+var data = google.visualization.arrayToDataTable([
+  ['Stage', 'Chances' ],
+  ['No_Dr',  x[0]  ],
+  ['Mild',  x[1]],
+  ['Moderate',  x[2] ],
+  ['Severe',  x[3]],
+  ['Severe',  x[4]],
+]);
+
+var options = {
+  title: 'Stages Distrubution',
+  hAxis: {title: 'Year',  titleTextStyle: {color: '#333'}},
+  vAxis: {minValue: 0}
+};
+
+var chart = new google.visualization.AreaChart(document.getElementById('area_chart1'));
+chart.draw(data, options);
+}
+
+function areachart2() {
+var data = google.visualization.arrayToDataTable([
+  ['Stage', 'Chances' ],
+  ['No_Dr',  x[5]  ],
+  ['Mild',  x[6]],
+  ['Moderate',  x[7] ],
+  ['Severe',  x[8]],
+  ['Severe',  x[9]],
+]);
+
+var options = {
+  title: 'Stages Distrubution',
+  hAxis: {title: 'Year',  titleTextStyle: {color: '#333'}},
+  vAxis: {minValue: 0}
+};
+
+var chart = new google.visualization.AreaChart(document.getElementById('area_chart2'));
+chart.draw(data, options);
+}
+</script>
     <!-- Vendor JS Files -->
     <script src="../static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../static/assets/vendor/glightbox/js/glightbox.min.js"></script>
@@ -401,6 +439,5 @@ function areachart2() {
   
     <!-- Template Main JS File -->
     <script src="../static/assets/js/main.js"></script>
-
 </body>
 </html>
